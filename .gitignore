@@ -1,0 +1,10 @@
+.venv/
+.env
+.cache/
+__pycache__/
+*.pyc
+.DS_Store
+*.log
+*.bak*
+lilly_talk/data/
+*.wav
