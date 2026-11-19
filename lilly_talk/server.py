@@ -307,6 +307,7 @@ def create_app(config: Settings) -> FastAPI:
 
 def main():
     os.environ.setdefault("HF_HUB_OFFLINE", "1")
+    os.environ.pop("ASTRA_STT_DUMP_DIR", None)  # Diagnose-Aufnahme der Basis ist hier nie erlaubt: keine Aufnahmen
     logger.remove()
     logger.add(sys.stderr, level=os.getenv("ASTRA_LOG_LEVEL", "INFO"))
     config = Settings.from_env()

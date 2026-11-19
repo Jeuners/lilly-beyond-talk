@@ -215,7 +215,7 @@ def persona_name(model: str) -> str:
 
 
 def build_system_prompt(persona: str) -> str:
-    # Labor-Patch: eigene Persona aus Datei (ASTRA_PERSONA_PROMPT_FILE), z. B. Lilly Beyond
+    # eigene Persona aus Datei (ASTRA_PERSONA_PROMPT_FILE), z. B. Lilly Beyond
     _datei = os.path.expanduser(os.getenv("ASTRA_PERSONA_PROMPT_FILE", ""))
     if _datei and os.path.isfile(_datei):
         with open(_datei, encoding="utf-8") as f:

@@ -45,6 +45,7 @@ Eine Stimmprobe (WAV, ca. 8 s) ist **nicht** im Repo. Nimm nur eine Stimme, die 
 - 18+-Abfrage und KI-Hinweis vor jedem Gespräch.
 - Fan-Prompt: keine Treffen, keine Kontaktdaten, keine Fragen nach persönlichen Daten, kein Flirten mit Minderjährigen, Hinweis auf die Telefonseelsorge bei Not, lässt sich nicht aus der Rolle bringen.
 - Ein Anruf gleichzeitig, höchstens 5 Minuten, 10 Anrufe pro Stunde und Adresse, nur gleicher Ursprung, strikte CSP.
+- Logs (nur stderr, Stufe INFO) enthalten keine Gesprächsinhalte, keine Texte und keine IP-Adressen, nur Start und Ende eines Gesprächs mit Szenen-ID und Dauer. Der HTTP-Zugriffslog ist aus, die Diagnose-Aufnahme der Basis (`ASTRA_STT_DUMP_DIR`) wird in Lilly Talk ignoriert.
 - Gespeichert wird nur eine zufällige Cookie-ID mit den gespielten Szenen (`lilly_talk/data/`, nicht in Git). Keine Namen, keine Aufnahmen, keine Gesprächsinhalte.
 
 ## Szenenmedien

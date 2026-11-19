@@ -556,7 +556,7 @@ _AUSSPRACHE: list | None = None
 
 
 def aussprache(text: str) -> str:
-    """Labor-Patch: Wörter vor der Sprachausgabe umschreiben (ASTRA_AUSSPRACHE_FILE, JSON {wort: lautschrift})."""
+    """Wörter vor der Sprachausgabe umschreiben (ASTRA_AUSSPRACHE_FILE, JSON {wort: lautschrift})."""
     global _AUSSPRACHE
     import re
     if _AUSSPRACHE is None:

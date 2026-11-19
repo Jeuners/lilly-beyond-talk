@@ -54,7 +54,7 @@ class Models:
 
     def get_voice(self, name: str) -> dict:
         """Compute (or reuse) one voice's conditioning state. Runs on tts_executor."""
-        import os  # Labor-Patch: ASTRA_VOICE_FILE = Stimmprobe (Klon) statt Katalogstimme
+        import os  # ASTRA_VOICE_FILE = Stimmprobe (Klon) statt Katalogstimme
         name = os.getenv("ASTRA_VOICE_FILE") or name
         if name not in self.voice_cache:
             self.voice_cache[name] = self.tts.get_state_for_audio_prompt(name)
