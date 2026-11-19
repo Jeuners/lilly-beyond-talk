@@ -88,7 +88,7 @@ class Disconnect(BaseModel):
 async def _run_pipeline(
     transport, models, config, voice_state, voice_name, context, notify,
     knowledge_store=None, initial_greeting=None, vad_params=None, no_speech_phrases=None,
-    extensions=None,
+    extensions=None, opening_cue=None,
 ):
     """Shared Pipecat pipeline body for both the browser (WebRTC) and
     telephony (WebSocket) entrypoints - only the transport and how `notify`
@@ -117,6 +117,7 @@ async def _run_pipeline(
         BotStoppedSpeakingFrame,
         InterruptionFrame,
         LLMFullResponseStartFrame,
+        LLMRunFrame,
         TTSSpeakFrame,
         VADUserStartedSpeakingFrame,
     )
@@ -194,7 +195,11 @@ async def _run_pipeline(
     @transport.event_handler("on_client_connected")
     async def connected(transport, client):
         notify({"type": "state", "state": "listening"})
-        if initial_greeting:
+        if opening_cue:
+            # Dynamischer Start: das Modell formuliert die erste Äußerung selbst (und läuft sich dabei warm).
+            context.add_message({"role": "user", "content": opening_cue})
+            await worker.queue_frames([LLMRunFrame()])
+        elif initial_greeting:
             await llm.push_frame(TTSSpeakFrame(text=initial_greeting, append_to_context=True))
 
     @transport.event_handler("on_client_disconnected")

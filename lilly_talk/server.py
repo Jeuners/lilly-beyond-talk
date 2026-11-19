@@ -34,6 +34,10 @@ from astra.inference import Models, on_executor
 HERE = Path(__file__).resolve().parent
 WEB = HERE / "web"
 MAX_SECONDS = int(os.getenv("LILLY_TALK_MAX_SECONDS", "300"))
+FESTE_BEGRUESSUNG = os.getenv("LILLY_TALK_FESTE_BEGRUESSUNG") == "1"  # 1 = Sätze aus scenes.json statt Modell
+OPENING_CUE = ("(Die Person ist gerade bei dir angekommen. Begrüße sie jetzt mit ein bis zwei kurzen, natürlichen Sätzen, "
+               "passend zur Szene und in deinen eigenen Worten. Fang nicht mit Lachen oder „haha“ an, stell höchstens "
+               "eine einfache Frage am Ende oder lieber gar keine.)")
 CALLS_PER_HOUR = int(os.getenv("LILLY_TALK_CALLS_PER_HOUR", "10"))
 DATA = Path(os.path.expanduser(os.getenv("LILLY_TALK_DATA", str(HERE / "data"))))
 COOKIE = "lilly_fan"
@@ -260,7 +264,8 @@ def create_app(config: Settings) -> FastAPI:
                 try:
                     await asyncio.wait_for(_run_pipeline(
                         transport, models, config, voice_state, config.voice, context, notify,
-                        initial_greeting=random.choice(scene["greetings"]),
+                        initial_greeting=random.choice(scene["greetings"]) if FESTE_BEGRUESSUNG else None,
+                        opening_cue=None if FESTE_BEGRUESSUNG else OPENING_CUE,
                     ), timeout=MAX_SECONDS)
                 except asyncio.TimeoutError:
                     notify({"type": "limit_reached"})
