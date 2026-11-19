@@ -4,6 +4,12 @@ Fans treffen die KI-Figur **Lilly Beyond** im Browser und reden live mit ihr, Au
 
 Lilly Beyond ist eine **KI-generierte Figur**. Die App sagt das vor jedem Gespräch deutlich, und Lilly behauptet nie, ein Mensch zu sein.
 
+## So sieht es aus
+
+| Szenenwahl | Im Gespräch |
+|---|---|
+| ![Szenenwahl mit vier Szenen](docs/screenshot-szenen.jpg) | ![Gespräch in der Szene Fitness mit Untertiteln](docs/screenshot-gespraech.jpg) |
+
 ## Wie es funktioniert
 
 | Teil | Was |
