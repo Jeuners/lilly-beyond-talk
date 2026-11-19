@@ -350,7 +350,6 @@ body[data-view="call"] main { gap: 16px; }
 }
 .call .disc svg { transition: transform .3s var(--ease); }
 .call[data-active="true"] .disc { background: linear-gradient(180deg, var(--stop), var(--stop-deep)); box-shadow: 0 12px 30px -8px rgba(255, 90, 95, .7); }
-.call[data-active="true"] .disc svg { transform: rotate(135deg); }
 .call:disabled { opacity: 1; }
 .call:disabled .disc { background: linear-gradient(180deg, #4b5266, #363c4f); box-shadow: none; color: rgba(255, 255, 255, .6); }
 .call:disabled .label { color: var(--muted); }
