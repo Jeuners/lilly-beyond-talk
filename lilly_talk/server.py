@@ -189,7 +189,10 @@ def create_app(config: Settings) -> FastAPI:
 
     @app.get("/api/status")
     async def get_status():
-        return {**status, "busy": bool(sessions), "max_seconds": MAX_SECONDS}
+        from urllib.parse import urlparse
+        local = (urlparse(config.ollama_url).hostname or "") in ("127.0.0.1", "localhost", "::1")
+        return {**status, "busy": bool(sessions), "max_seconds": MAX_SECONDS, "llm_local": local,
+                "llm_provider": os.getenv("LILLY_TALK_LLM_ANBIETER", "")}
 
     @app.get("/api/scenes")
     async def scenes(request: Request):

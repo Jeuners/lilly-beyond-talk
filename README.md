@@ -31,6 +31,7 @@ export LILLY_VOICE=/pfad/zur/stimmprobe.wav   # siehe „Stimme“
 | `LILLY_TALK_ALLES_FREI=1` | Testmodus: alle Szenen frei, Premium ohne Zahlung |
 | `ASTRA_MODEL`, `ASTRA_OLLAMA_URL` | anderes Modell bzw. anderer Ollama-Endpunkt |
 | `LILLY_TALK_FESTE_BEGRUESSUNG=1` | feste Begrüßung aus `scenes.json` statt vom Modell erzeugter |
+| `LILLY_TALK_LLM_ANBIETER` | Text für den Datenschutzhinweis, wenn `ASTRA_OLLAMA_URL` nicht lokal ist, z. B. „einen KI-Dienst in Deutschland (Anbieter X)“. Bei lokalem Modell zeigt der Hinweis automatisch „nichts geht an Dritte“ |
 | `LILLY_TALK_MAX_SECONDS` | Gesprächsdauer (Standard 300) |
 | `LILLY_TALK_CALLS_PER_HOUR` | Anrufe pro Stunde und Adresse (Standard 10) |
 | `LILLY_TALK_MIN_SECONDS` | Mindestdauer, damit eine Szene als gespielt zählt (Standard 60) |

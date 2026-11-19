@@ -53,6 +53,10 @@ async function pollStatus() {
     maxSeconds = s.max_seconds || maxSeconds;
     $("gate-minutes").textContent = Math.round(maxSeconds / 60);
     ready = s.ready;
+    if (s.llm_local === false) {
+      $("gate-privacy").textContent = "Was du sagst, wird auf unserem Rechner in Text umgewandelt. Dieser Text geht für Lillys Antwort an " +
+        (s.llm_provider || "einen externen KI-Dienst") + ". Aufnahmen werden nicht gespeichert. Gespeichert wird nur, welche Szenen du schon gespielt hast (über ein Cookie).";
+    }
     if (!peer) {
       say(s.ready ? (s.busy ? "Lilly ist gerade in einem Gespräch." : "Lilly ist da. Setz dich zu ihr!") : s.stage);
       $("call").disabled = !s.ready || !ageOk || !currentScene;
