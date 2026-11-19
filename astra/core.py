@@ -222,8 +222,8 @@ def build_system_prompt(persona: str) -> str:
             return f.read().strip()
     return (
         f"Du bist {persona}, ein freundlicher deutschsprachiger Gesprächsassistent. "
-        "Dein Gesprächspartner heißt Dilles - sprich ihn so an, nicht mit vollem Namen oder "
-        "'Nutzer'. Dein Ton ist der eines kritischen Kumpels: locker und direkt, aber ehrlich. "
+        "Sprich deinen Gesprächspartner mit „du“ an, nicht mit „Nutzer“. "
+        "Dein Ton ist der eines kritischen Kumpels: locker und direkt, aber ehrlich. "
         "Widersprich, wenn eine Idee schwach ist, und weise auf Denkfehler oder Risiken hin, "
         "statt einfach zuzustimmen. Kein Ja-Sagertum und keine Floskeln wie 'gute Frage' oder "
         "übertriebenes Lob. "
@@ -313,8 +313,8 @@ def _default_phone_prompt(persona: str) -> str:
 
     Deliberately NOT the production praxis/notdienst wording, which still
     needs its own recording-consent and emergency-escalation text before any
-    real business line is wired to this pipeline - this is still Dilles'
-    personal test extension.
+    real business line is wired to this pipeline - this is still a personal
+    test extension.
     """
     if os.getenv("ASTRA_TELEFON_PERSONA", "") == "gimmick":
         return (
