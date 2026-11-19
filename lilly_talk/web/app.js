@@ -54,7 +54,7 @@ async function pollStatus() {
     $("gate-minutes").textContent = Math.round(maxSeconds / 60);
     ready = s.ready;
     if (!peer) {
-      say(s.ready ? (s.busy ? "Lilly telefoniert gerade." : "Lilly ist da. Ruf sie an!") : s.stage);
+      say(s.ready ? (s.busy ? "Lilly ist gerade in einem Gespräch." : "Lilly ist da. Setz dich zu ihr!") : s.stage);
       $("call").disabled = !s.ready || !ageOk || !currentScene;
     }
   } catch { if (!peer) say("Keine Verbindung zum Server."); }
@@ -73,7 +73,7 @@ function receive(event) {
     if (m.role === "user" && m.text) $("you").textContent = m.text;
     if (m.role === "assistant" && m.text) $("lilly").textContent = m.text;
   }
-  if (m.type === "limit_reached") { say("Die Zeit ist um. Danke fürs Anrufen!"); void hangUp(); }
+  if (m.type === "limit_reached") { say("Die Zeit ist um. Danke fürs Quatschen!"); void hangUp(); }
   if (m.type === "error") showError(m.message || "Da ist etwas schiefgegangen.");
 }
 
@@ -118,14 +118,14 @@ async function call() {
       if (pc.connectionState === "connected") { say("Verbunden. Lilly meldet sich …"); portrait("listening"); }
       if (["failed", "disconnected", "closed"].includes(pc.connectionState) && !ending) { say("Verbindung beendet."); void hangUp(); }
     };
-    say("Lilly wird angerufen …");
+    say("Du gehst zu Lilly …");
     await pc.setLocalDescription(await pc.createOffer());
     await waitIce(pc);
     const answer = await post("/api/offer", {sdp: pc.localDescription.sdp, type: "offer", age_confirmed: ageOk, scene: currentScene});
     pcId = answer.pc_id;
     await pc.setRemoteDescription({sdp: answer.sdp, type: answer.type});
     startCountdown(answer.max_seconds || maxSeconds);
-    label("call", "Auflegen");
+    label("call", "Gespräch beenden");
     $("call").dataset.active = "true";
     $("call").disabled = false;
     $("mute").hidden = false;
@@ -150,7 +150,7 @@ async function hangUp(quiet = false) {
   peer?.close(); peer = null;
   out.pause(); out.srcObject = null;
   portrait("idle");
-  label("call", "Lilly anrufen");
+  label("call", "Mit Lilly reden");
   $("call").dataset.active = "false";
   $("mute").hidden = true;
   $("mute").setAttribute("aria-pressed", "false");
@@ -182,7 +182,7 @@ async function loadScenes() {
 }
 
 function sceneMeta(sc, index) {
-  if (sc.played) return "Gespielt · nochmal anrufen";
+  if (sc.played) return "Gespielt · nochmal treffen";
   if (!sc.unlocked) return `Frei, wenn du „${scenes[index - 1].title}“ gespielt hast`;
   if (sc.needs_payment) return "Premium · jetzt freischalten (Simulation)";
   return sc.teaser;
@@ -225,7 +225,7 @@ function renderScenes() {
     const body = el("span", "body");
     body.append(el("span", "name", sc.title), el("span", "meta", sceneMeta(sc, i)));
     if (!locked) {
-      const cta = el("span", "cta", sc.needs_payment ? "Freischalten" : sc.played ? "Nochmal anrufen" : "Anrufen");
+      const cta = el("span", "cta", sc.needs_payment ? "Freischalten" : sc.played ? "Nochmal treffen" : "Treffen");
       cta.prepend(icon(sc.needs_payment ? "lock" : "phone"));
       body.append(cta);
     }

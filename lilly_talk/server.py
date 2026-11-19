@@ -231,7 +231,7 @@ def create_app(config: Settings) -> FastAPI:
             raise HTTPException(429, "Lilly braucht eine Pause. Versuch es in einer Stunde wieder.")
         async with lock:
             if sessions:
-                raise HTTPException(409, "Lilly telefoniert gerade. Versuch es gleich noch mal.")
+                raise HTTPException(409, "Lilly ist gerade in einem Gespräch. Versuch es gleich noch mal.")
             recent.append(now)
             from pipecat.processors.aggregators.llm_context import LLMContext
             from pipecat.transports.base_transport import TransportParams

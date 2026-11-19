@@ -1,8 +1,8 @@
 # Lilly Beyond Talk
 
-Fans rufen die KI-Figur **Lilly Beyond** im Browser an und reden live mit ihr, in vier Szenen, die nacheinander frei werden (Frühstück im Hotel, Fitness, Abendessen, Hotelzimmer als 18+-Premium). Alles läuft lokal auf Apple Silicon, nichts geht an Dritte.
+Fans treffen die KI-Figur **Lilly Beyond** im Browser und reden live mit ihr, Auge in Auge in der jeweiligen Szene, in vier Szenen, die nacheinander frei werden (Frühstück im Hotel, Fitness, Abendessen, Hotelzimmer als 18+-Premium). Alles läuft lokal auf Apple Silicon, nichts geht an Dritte.
 
-Lilly Beyond ist eine **KI-generierte Figur**. Die App sagt das vor jedem Anruf deutlich, und Lilly behauptet nie, ein Mensch zu sein.
+Lilly Beyond ist eine **KI-generierte Figur**. Die App sagt das vor jedem Gespräch deutlich, und Lilly behauptet nie, ein Mensch zu sein.
 
 ## Wie es funktioniert
 
@@ -13,7 +13,7 @@ Lilly Beyond ist eine **KI-generierte Figur**. Die App sagt das vor jedem Anruf 
 | Sprechen | Pocket TTS (lokal) mit Stimmprobe, englische Wörter über `persona/aussprache.json` |
 | Persona | `persona/lilly_talk_prompt.txt` (Fan-Prompt) plus Szene aus `lilly_talk/scenes.json` |
 | Server | `lilly_talk/server.py`: schlanker FastAPI-Server, keine Werkzeuge, Uploads, Suche oder Telefonie. Lauscht nur auf `127.0.0.1` |
-| Oberfläche | `lilly_talk/web/`: Altersabfrage, Szenenwahl, Anruf im FaceTime-Stil, Video-Loop pro Szene, Untertitel |
+| Oberfläche | `lilly_talk/web/`: Altersabfrage, Szenenwahl, Gesprächsansicht im FaceTime-Stil, Video-Loop pro Szene, Untertitel |
 | Sprachkette | `astra/`: Pipecat-Pipeline, Abkömmling von [astra-local-voice](https://github.com/Jeuners/astra-local-voice) |
 
 ## Starten
@@ -30,7 +30,7 @@ export LILLY_VOICE=/pfad/zur/stimmprobe.wav   # siehe „Stimme“
 |---|---|
 | `LILLY_TALK_ALLES_FREI=1` | Testmodus: alle Szenen frei, Premium ohne Zahlung |
 | `ASTRA_MODEL`, `ASTRA_OLLAMA_URL` | anderes Modell bzw. anderer Ollama-Endpunkt |
-| `LILLY_TALK_MAX_SECONDS` | Anrufdauer (Standard 300) |
+| `LILLY_TALK_MAX_SECONDS` | Gesprächsdauer (Standard 300) |
 | `LILLY_TALK_CALLS_PER_HOUR` | Anrufe pro Stunde und Adresse (Standard 10) |
 | `LILLY_TALK_MIN_SECONDS` | Mindestdauer, damit eine Szene als gespielt zählt (Standard 60) |
 
@@ -40,7 +40,7 @@ Eine Stimmprobe (WAV, ca. 8 s) ist **nicht** im Repo. Nimm nur eine Stimme, die 
 
 ## Schutz (eingebaut)
 
-- 18+-Abfrage und KI-Hinweis vor jedem Anruf.
+- 18+-Abfrage und KI-Hinweis vor jedem Gespräch.
 - Fan-Prompt: keine Treffen, keine Kontaktdaten, keine Fragen nach persönlichen Daten, kein Flirten mit Minderjährigen, Hinweis auf die Telefonseelsorge bei Not, lässt sich nicht aus der Rolle bringen.
 - Ein Anruf gleichzeitig, höchstens 5 Minuten, 10 Anrufe pro Stunde und Adresse, nur gleicher Ursprung, strikte CSP.
 - Gespeichert wird nur eine zufällige Cookie-ID mit den gespielten Szenen (`lilly_talk/data/`, nicht in Git). Keine Namen, keine Aufnahmen, keine Gesprächsinhalte.
